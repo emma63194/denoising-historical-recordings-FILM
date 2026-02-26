@@ -1,0 +1,24 @@
+dset:
+  # 🎤 Clean Dataset - 三種資料來源（60% AISHELL-3 對白 / 20% FSD50K 音效 / 20% MusicNet 音樂）
+  # 注意：資料集的隨機混合比例需在 dataset_loader.py 中實作
+  path_music_train: [ 
+    "/Volumes/SP SSD 120/data_aishell3/train/wav/**/*.wav",
+    "/Volumes/SP SSD 120/FSD50K/FSD50K.dev_audio/*.wav",
+    "/Volumes/SP SSD 120/Musicnet/musicnet/train_data/*.wav"
+  ]
+  
+  path_music_validation: [
+    "/Volumes/SP SSD 120/data_aishell3/test/wav/**/*.wav",
+    "/Volumes/SP SSD 120/FSD50K/FSD50K.eval_audio/*.wav",
+    "/Volumes/SP SSD 120/Musicnet/musicnet/test_data/*.wav"
+  ]
+  
+  path_music_test: [
+    "/Volumes/SP SSD 120/data_aishell3/test/wav/**/*.wav",
+    "/Volumes/SP SSD 120/FSD50K/FSD50K.eval_audio/*.wav",
+    "/Volumes/SP SSD 120/Musicnet/musicnet/test_data/*.wav"
+  ]
+
+  # 🔊 Noise Dataset - 老電影噪音資料集
+  path_noise: "/Users/shizukaryu/Documents/學校/論文/dataset/Gramophone_Record_Noise_Dataset" # 黑膠唱片噪音（不需要 info.csv，直接讀取 wav）
+  path_recordings: "/Users/shizukaryu/Documents/學校/論文/dataset/test_movie" # 真實老電影測試資料（需要 audio_files.txt）

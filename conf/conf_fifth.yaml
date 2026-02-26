@@ -1,0 +1,88 @@
+# 🚀 第五次訓練配置 - 激進降噪版（方案A）
+# 不修改任何代碼，只調整參數來增強降噪效果
+
+defaults:
+  - dset: dataset_prototype
+  - _self_
+
+path_experiment: "experiments/fifth_training" 
+tensorboard_logs: "experiments/tensorboard_logs"
+
+# Dataset related
+fs: 44100
+seg_len_s_train: 3
+freq_inference: 5  # 每 5 個 epoch 推論一次
+seg_len_s_test: 8
+num_test_segments: 3
+num_real_test_segments: 1
+buffer_size: 100
+
+# Dataset Augmentation
+overlap: 0
+
+# Logging
+verbose: 1
+use_tensorboard: True
+use_soft_denoising: False
+
+num_workers: 2
+
+# Checkpointing
+checkpoint: true
+continue_from: ''
+continue_best: false
+only_inference: false
+
+# 🔥 關鍵改進 1：增加學習率，讓模型更激進
+optim: adam
+lr: 5e-4  # 從 2e-4 提高到 5e-4（2.5倍）
+variable_lr: True
+beta1: 0.5
+beta2: 0.9
+
+loss: "mae"
+
+# 🔥 關鍵改進 2：加強訓練強度
+epochs: 25  # 從 20 增加到 25
+batch_size: 4
+val_take: -1
+steps_per_epoch: 250  # 從 200 增加到 250
+
+sp:
+  method: "wiener"
+
+# STFT parameters (必需配置)
+stft:
+  win_size: 2048
+  hop_size: 512
+
+# 🔥 關鍵改進 3：推論時使用更強的降噪
+inference:
+  audio: "test_audio/test_2.wav"
+  denoising_strength: 0.5  # 從 0.3 提高到 0.5
+
+# Model configuration
+model: unet
+unet:
+  activation: "elu"
+  use_csff: False
+  use_SAM: True
+  use_cam: False
+  use_fam: False
+  use_fencoding: True
+  use_tdf: False
+  use_alttdfs: False
+  num_tfc: 1
+  num_stages: 2
+  depth: 3
+  f_dim: 1025
+
+# Hydra config
+hydra:
+  job:
+    config:
+      override_dirname:
+        kv_sep: '='
+        item_sep: ','
+        exclude_keys: ['path_experiment',
+          'hydra.job_logging.handles.file.filename']

@@ -1,0 +1,87 @@
+defaults:
+  - dset: dataset_prototype  # 使用精簡的數據集配置
+  - _self_
+
+# 🚀 Prototype 配置 - 針對 MacBook Air M3 16GB RAM 優化
+path_experiment: "experiments/prototype" 
+tensorboard_logs: "experiments/tensorboard_logs"
+
+# Dataset related
+fs: 44100
+seg_len_s_train: 3  # 縮短片段長度：5→3 秒（加快訓練）
+freq_inference: 3   # 每 3 個 epoch 推論（減少 I/O 和計算負擔）
+seg_len_s_test: 8   # 進一步縮短：15→8 秒（節省記憶體）
+num_test_segments: 3   # 進一步減少：15→3（加快推論）
+num_real_test_segments: 1  # 只測試 1 個真實錄音（節省時間）
+buffer_size: 100  # 減少 buffer：1000→100（節省記憶體）
+
+# Dataset Augmentation
+overlap: 0
+
+# Logging
+verbose: 1  # 增加 verbose 以便觀察進度
+use_tensorboard: True
+use_soft_denoising: False
+
+num_workers: 2  # M3 優化：減少到 2（避免外接硬碟 I/O 瓶頸和熱節流）
+
+# Checkpointing
+checkpoint: true
+continue_from: ''
+continue_best: false
+only_inference: false
+
+# Optimization - 使用稍大的學習率加快收斂
+optim: adam
+lr: 2e-4  # 稍微增加：1e-4→2e-4
+variable_lr: True
+beta1: 0.5
+beta2: 0.9
+
+loss: "mae"
+
+# 🔥 關鍵：針對 MacBook Air M3 優化
+# 第四次訓練：老師建議增加訓練量看收斂底線
+epochs: 20  # 增加到 20 個 epoch（8→20）
+batch_size: 4  # M3 優化：16→4（16GB RAM 安全配置）
+val_take: -1
+steps_per_epoch: 200  # 增加到 200 步（80→200，用更多數據）
+
+sp:
+  method: "wiener"
+
+# STFT parameters
+stft:
+  win_size: 2048
+  hop_size: 512
+
+# inference param
+inference:
+  audio: None
+  denoising_strength: 0.3  # 0.0=無降噪(原始), 1.0=完全降噪(純模型輸出), 0.3=溫和降噪(建議)
+
+# Model - MacBook Air M3 超輕量模型
+model: unet
+unet:
+  activation: "elu"
+  use_csff: False
+  use_SAM: False  # 關閉 SAM（減少計算量）
+  use_cam: False
+  use_fam: False
+  use_fencoding: True
+  use_tdf: False
+  use_alttdfs: False
+  num_tfc: 1  # 進一步減少：2→1（超輕量）
+  num_stages: 2  # 保持 2 階段
+  depth: 3  # 進一步減少：4→3（更少參數）
+  f_dim: 1025
+
+# Hydra config
+hydra:
+  job:
+    config:
+      override_dirname:
+        kv_sep: '='
+        item_sep: ','
+        exclude_keys: ['path_experiment',
+          'hydra.job_logging.handles.file.filename']

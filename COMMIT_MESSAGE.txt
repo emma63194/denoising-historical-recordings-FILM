@@ -1,0 +1,28 @@
+Adapt for old movie audio denoising with M3 optimization
+
+Major Changes:
+- Added M3 Metal GPU support for MacBook Air training
+- Integrated multi-dataset training (AISHELL-3 + FSD50K + MusicNet)
+- Adjusted SNR range from uniform(2,20) to uniform(10,25) dB
+- Implemented adjustable denoising strength (0.0-1.0)
+- Added comprehensive training documentation
+
+Configuration:
+- Created conf_prototype.yaml for M3-optimized settings
+- batch_size=4, epochs=20, steps_per_epoch=200
+- Validation dataset expanded to 628 files (6 speakers + sound + music)
+
+Training History:
+- Completed 4 training runs with progressive improvements
+- Final model: val_MAE 0.156 (20 epochs, 6.25x data)
+
+Documentation:
+- Added TRAINING_SUMMARY.md with all 4 training experiments
+- Added M3_GPU_GUIDE.md for Apple Silicon setup
+- Added WHY_LOSS_CONVERGED.md for problem analysis
+- Organized all docs in docs/ folder
+
+Files cleaned:
+- Removed training logs (*.log files)
+- Added comprehensive .gitignore for large files
+- Excluded .cache/ (2.4GB), experiments/ (30MB), outputs/ (540KB)

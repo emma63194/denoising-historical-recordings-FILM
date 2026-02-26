@@ -1,0 +1,37 @@
+# 🚀 Prototype 配置 - 完整三種資料的快速驗證版
+# 包含：對白（AISHELL-3）+ 音效（FSD50K）+ 音樂（MusicNet）
+# 策略：每種資料抽取少量樣本，保持多樣性
+
+path_music_train: [ 
+  "/Volumes/SP SSD 120/data_aishell3/train/wav/SSB0005",
+  "/Volumes/SP SSD 120/data_aishell3/train/wav/SSB0009",
+  "/Volumes/SP SSD 120/FSD50K/FSD50K.dev_audio",
+  "/Volumes/SP SSD 120/Musicnet/musicnet/train_data"
+]
+
+# 驗證集：三種類型都有，增加AISHELL-3的speakers數量（第四次訓練）
+path_music_validation: [
+  "/Volumes/SP SSD 120/data_aishell3/test/wav/SSB0005",
+  "/Volumes/SP SSD 120/data_aishell3/test/wav/SSB0009",
+  "/Volumes/SP SSD 120/data_aishell3/test/wav/SSB0012",
+  "/Volumes/SP SSD 120/data_aishell3/test/wav/SSB0016",
+  "/Volumes/SP SSD 120/data_aishell3/test/wav/SSB0018",
+  "/Volumes/SP SSD 120/data_aishell3/test/wav/SSB0043",
+  "/Volumes/SP SSD 120/FSD50K/FSD50K.eval_audio",
+  "/Volumes/SP SSD 120/Musicnet/musicnet/test_data"
+]
+
+path_music_test: [
+  "/Volumes/SP SSD 120/data_aishell3/test/wav/SSB0005",
+  "/Volumes/SP SSD 120/data_aishell3/test/wav/SSB0009",
+  "/Volumes/SP SSD 120/data_aishell3/test/wav/SSB0012",
+  "/Volumes/SP SSD 120/data_aishell3/test/wav/SSB0016",
+  "/Volumes/SP SSD 120/data_aishell3/test/wav/SSB0018",
+  "/Volumes/SP SSD 120/data_aishell3/test/wav/SSB0043",
+  "/Volumes/SP SSD 120/FSD50K/FSD50K.eval_audio",
+  "/Volumes/SP SSD 120/Musicnet/musicnet/test_data"
+]
+
+# 噪音資料集（完整使用，因為需要多樣性）
+path_noise: "/Users/shizukaryu/Documents/學校/論文/dataset/Gramophone_Record_Noise_Dataset"
+path_recordings: "/Users/shizukaryu/Documents/學校/論文/dataset/test_movie"

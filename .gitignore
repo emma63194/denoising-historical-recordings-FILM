@@ -1,0 +1,67 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+env/
+venv/
+ENV/
+*.egg-info/
+dist/
+build/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# macOS
+.DS_Store
+.AppleDouble
+.LSOverride
+
+# Training artifacts
+.cache/
+experiments/
+outputs/
+checkpoint/
+*.ckpt
+
+# Logs
+*.log
+nohup.out
+
+# Scripts (personal automation)
+*.sh
+
+# Analysis scripts (personal)
+analyze_audio.py
+analyze_test2.py
+
+# Data
+test_audio
+*.wav
+*.mp3
+*.flac
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Environment
+.env
+*.env
+
+# Large datasets (should use Git LFS or external storage)
+data/
+dataset/
+*.pkl
+*.h5
+*.hdf5
+
+# Temporary files
+*.tmp
+*.bak
+*.orig
